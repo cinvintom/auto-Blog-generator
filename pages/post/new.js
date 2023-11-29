@@ -1,10 +1,11 @@
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 import { AppLayout } from "../../components/AppLayout";
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 export default function NewPost(props) {
+    const router = useRouter();
     console.log('new post', props)
-    const [postContent, setPostContent] = useState('')
     const [topic, setTopic] = useState('')
     const [keywords, setKeywords] = useState('')
 
@@ -13,14 +14,15 @@ export default function NewPost(props) {
         const response = await fetch('/api/generatePost', {
             method: "POST",
             headers: {
-                'content-type':'application/json'
+                'content-type': 'application/json'
             },
-            body: JSON.stringify({topic,keywords}),
+            body: JSON.stringify({ topic, keywords }),
         });
         const json = await response.json();
-        console.log("Result", json.post.postContent);
-
-        setPostContent(json.post.postContent);
+        console.log("Result", json);
+        if (json?.postId) {
+            router.push(`/post/${json.postId}`);
+        }
 
 
     }
@@ -49,7 +51,7 @@ export default function NewPost(props) {
                     Generate
                 </button>
             </form>
-            <div className="max-w-screen-sm p-10" dangerouslySetInnerHTML={{ __html: postContent }} />
+            {/* <div className="max-w-screen-sm p-10" dangerouslySetInnerHTML={{ __html: postContent }} /> */}
         </div>)
 }
 
