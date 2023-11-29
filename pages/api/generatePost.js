@@ -30,8 +30,8 @@ export default withApiAuthRequired(async function handler(req, res) {
       content: "You are a blog generator"
     }, {
       role: "user",
-      content: `write a long and detail SEO-friendly blog post about ${topic},
-       that targets the following comma-separated keywords: ${keywords}.
+      content: `write a long and detailed SEO-friendly blog post about ${topic},
+       that targets the following comma-separated keywords: ${keywords}.also include a small conclusion.
        The content should be formatted in SEO-friendly HTML,
       limited to the following HTML tags:p,h1,h2,h3,h4,h5,h6, strong, li,ol,ul,i `
     },
@@ -51,7 +51,7 @@ export default withApiAuthRequired(async function handler(req, res) {
       content: postContent
     }, {
       role: "user",
-      content: `Generate appropriate title tag text for the above blog post`
+      content: `Generate appropriate title text for the above blog post`
     },
     ],
   });
