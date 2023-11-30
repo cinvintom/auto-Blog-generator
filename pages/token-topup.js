@@ -5,14 +5,17 @@ import { getAppProps } from "../utils/getAppProps";
 export default function TokenTopup() {
 
     const handleClick = async () => {
-        await fetch('/api/addtokens', {
+        const result = await fetch('/api/addtokens', {
             method: 'POST',
 
         });
-    }
+        const json = await result.json();
+        console.log("result", json)
+        window.location.href = json.session.url;
+    };
 
     return <div >
-        <h1>tokens available are so lesss
+        <h1>tokens available are so less
             <button className="btn" onClick={handleClick}>Add Tokens</button>
         </h1>
     </div>;
